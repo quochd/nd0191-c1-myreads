@@ -175,3 +175,32 @@ body,
   text-align: center;
   font-size: 0.8em;
 }
+
+/* book detail */
+.book-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.book-detail img {
+  width: 200px;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.book-detail h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.book-detail p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
