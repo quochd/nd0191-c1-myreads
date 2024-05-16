@@ -1,10 +1,12 @@
 import * as BooksAPI from "./BooksAPI";
 import { useNavigate} from "react-router-dom";
 
-const BookGrid = ({ books, isSearch, countChanged, onShelfChanged ,searchInput}) => {
+const BookGrid = ({ books, isSearch, countChanged, onShelfChanged }) => {
     let navigate = useNavigate();
     const handleOnchange = (book, value) => {
-        BooksAPI.update(book, value).then(() => {
+        const currentUsername = localStorage.getItem('currentUsername');  
+        const token = localStorage.getItem(`token-${currentUsername}`);
+        BooksAPI.update(book, value,token).then(() => {
             if (countChanged !== undefined) {
                 onShelfChanged(countChanged + 1);
             }
@@ -18,6 +20,12 @@ const BookGrid = ({ books, isSearch, countChanged, onShelfChanged ,searchInput})
         navigate(`/book/${book.id}`, { state: { book  } })
     };
 
+    const handleMouseDown = (e) => {
+        e.stopPropagation();
+        console.log("onMouseDown", e);
+    };
+
+
     return (<ol className="books-grid">
         {books.map((book) =>
             <li key={book.id}>
@@ -25,6 +33,7 @@ const BookGrid = ({ books, isSearch, countChanged, onShelfChanged ,searchInput})
                     <div className="book-top">
                         <div
                             className="book-cover"
+                            onMouseDown={handleMouseDown}
                             onClick={(e)=>moveToBookDetail(e,book)}
                             style={{
                                 width: 128,

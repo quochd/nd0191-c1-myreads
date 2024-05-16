@@ -8,14 +8,16 @@ const Main = () => {
 
     const [countBookShelfChanged, setCountBookShelfChanged] = useState(0);
 
+    const currentUsername = localStorage.getItem('currentUsername');  
+    const token = localStorage.getItem(`token-${currentUsername}`);
     useEffect(() => {
         const getBooks = async () => {
-            const books = await BooksAPI.getAll();
+            const books = await BooksAPI.getAll(token);
+            console.log("books",books);
             setBooks(books);
         };
         getBooks()
-
-    }, [countBookShelfChanged]);
+    }, [countBookShelfChanged]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const changeCountBookShelf = (value) => {
         setCountBookShelfChanged(value);

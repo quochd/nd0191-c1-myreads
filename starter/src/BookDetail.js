@@ -1,5 +1,4 @@
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const BookDetail = () => {
 
@@ -11,7 +10,7 @@ const BookDetail = () => {
     };
 
     return (<div className="book-detail">
-        <button onClick={goBack}>Previous</button>
+        <button onClick={goBack}>Previous Page</button>
         <img src={book.imageLinks.thumbnail} alt="Book Cover" />
         <h2>{book.title}</h2>
         <p>{book.authors.join(' , ')}</p>
