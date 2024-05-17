@@ -1,7 +1,7 @@
 import React from "react";
 
 function Header({ isLoggedIn, handleLogOut }) {
-  const currentUsername = localStorage.getItem('currentUsername');
+  const currentUsername = sessionStorage.getItem('currentUsername');
 
   return (
     <header className="app-header">

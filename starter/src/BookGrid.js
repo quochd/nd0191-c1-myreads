@@ -1,12 +1,12 @@
 import * as BooksAPI from "./BooksAPI";
-import { useNavigate} from "react-router-dom";
+import { Draggable } from 'react-beautiful-dnd';
+import Book from "./Book";
 
 const BookGrid = ({ books, isSearch, countChanged, onShelfChanged }) => {
-    let navigate = useNavigate();
     const handleOnchange = (book, value) => {
-        const currentUsername = localStorage.getItem('currentUsername');  
+        const currentUsername = sessionStorage.getItem('currentUsername');
         const token = localStorage.getItem(`token-${currentUsername}`);
-        BooksAPI.update(book, value,token).then(() => {
+        BooksAPI.update(book, value, token).then(() => {
             if (countChanged !== undefined) {
                 onShelfChanged(countChanged + 1);
             }
@@ -15,53 +15,20 @@ const BookGrid = ({ books, isSearch, countChanged, onShelfChanged }) => {
         });
     };
 
-    const moveToBookDetail = (e,book) => {
-        e.stopPropagation();
-        navigate(`/book/${book.id}`, { state: { book  } })
-    };
-
-    const handleMouseDown = (e) => {
-        e.stopPropagation();
-        console.log("onMouseDown", e);
-    };
-
-
     return (<ol className="books-grid">
-        {books.map((book) =>
-            <li key={book.id}>
-                <div className="book">
-                    <div className="book-top">
-                        <div
-                            className="book-cover"
-                            onMouseDown={handleMouseDown}
-                            onClick={(e)=>moveToBookDetail(e,book)}
-                            style={{
-                                width: 128,
-                                height: 193,
-                                backgroundImage:
-                                    `url(${book.imageLinks ? book.imageLinks.thumbnail : ''})`,
-                            }}
-                        ></div>
-                        <div className="book-shelf-changer">
-                            <select value={book.shelf ? book.shelf : 'none'} onChange={(e) => handleOnchange(book, e.target.value)}>
-                                <option value="default" disabled>
-                                    {isSearch === true ? 'Add' : 'Move'}  to...
-                                </option>
-                                <option value="currentlyReading">
-                                    Currently Reading
-                                </option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="book-title">{book.title}</div>
-                    <div className="book-authors">{book.authors}</div>
-                </div>
-            </li>
+        {books.map((book, index) =>
+            !isSearch ?
+                <Draggable key={book.id} draggableId={book.id} index={index}>
+                    {(provided) => (
+                        <li key={book.id} ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                            <Book book={book} isSearch={isSearch} onHandleOnchange={handleOnchange} />
+                        </li>
+                    )}
+                </Draggable>
+                :
+                <Book book={book} isSearch={isSearch} onHandleOnchange={handleOnchange} />
         )}
-    </ol>);
+    </ol >);
 };
 
 export default BookGrid;

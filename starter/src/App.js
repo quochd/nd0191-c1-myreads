@@ -7,11 +7,10 @@ import Login from "./Login";
 import { useEffect } from "react";
 import SignUp from "./SignUp";
 import Header from "./Header";
-import Test from "./Test";
 
 function App() {
   const navigate = useNavigate();
-  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn") === "true";
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -20,7 +19,7 @@ function App() {
   }, [isLoggedIn]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLogOut = () => {
-    localStorage.removeItem("isLoggedIn");
+    sessionStorage.removeItem("isLoggedIn");
     navigate("/login");
   };
 
@@ -33,7 +32,6 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/search" element={<SearchBooks />} />
         <Route path="/book/:bookId" element={<BookDetail />} />
-        <Route path="/test" element={<Test />} />
       </Routes>
     </div>
   );

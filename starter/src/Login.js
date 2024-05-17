@@ -19,8 +19,8 @@ function Login() {
             setError("password was incorrect");
         } else {
             setError("");
-            localStorage.setItem("isLoggedIn", "true");
-            localStorage.setItem("currentUsername", username);
+            sessionStorage.setItem("isLoggedIn", "true");
+            sessionStorage.setItem("currentUsername", username);
             if(!localStorage.getItem(`token-${username}`)){
                 localStorage.setItem(`token-${username}`, Math.random().toString(36).substr(-8));
             }

@@ -112,8 +112,8 @@ body,
   list-style-type: none;
   padding: 0;
   margin: 0;
-
   display: flex;
+  gap: 70px; 
   justify-content: center;
   flex-wrap: wrap;
 }
@@ -308,5 +308,21 @@ body,
   color: white;
   border: none;
   border-radius: 3px;
+  cursor: pointer;
+}
+
+.book-info {
+  position: absolute;
+  left: 0;
+  bottom: 160px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #2440bd;
+  background-image: url("./icons/information.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   cursor: pointer;
 }
