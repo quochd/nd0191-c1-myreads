@@ -45,18 +45,6 @@ const SearchBooks = () => {
         return filteredBooks;
     };
 
-    // const checkDuplicatedBook = (books) => {
-    //     const booksOfMainSet = new Set(booksOfMain.map((book) => book.id));
-    //     console.log("booksOfMainSet", booksOfMainSet);
-    //     return books.map((book) => {
-    //       if (booksOfMainSet.has(book.id)) {
-    //         const duplicatedBook = booksOfMain.find((b) => b.id === book.id);
-    //         book.shelf = duplicatedBook.shelf;
-    //       }
-    //       return book;
-    //     });
-    //   };
-
     return (<div className="search-books">
         <div className="search-books-bar">
             <Link
@@ -76,7 +64,7 @@ const SearchBooks = () => {
             </div>
         </div>
         <div className="search-books-results">
-            {books.length !== 0 && <BookGrid books={books} isSearch={true} searchInput={input}/>}
+            {books.length !== 0 && <BookGrid books={books} isSearch={true}/>}
         </div>
     </div>);
 };
